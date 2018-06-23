@@ -36,7 +36,7 @@
     }
     $oid = $rand_string;
     $status = 0;
-
+    $total_price1 = 0;
     //session_start
     session_start();
     $_SESSION["cid"] = cid;
@@ -50,6 +50,7 @@
             $cname = $_POST['cname'];
             $address = $_POST['address'];
             $phone = $_POST['phone'];
+            $days = $_POST['days'];
 
             
             //customer
@@ -73,7 +74,6 @@
                         $price = $_POST['price'.$j.''];
                         $a=$_POST['available'.$j.''];
                         $total_price = $rentq * $price;
-                        
                         $tto=$tto+$total_price;
                         $aa=$a-$rentq;
                         $query11 = "UPDATE items SET available=$aa where id=$idd";
@@ -89,9 +89,10 @@
                         
                     }
                 }
-
+                $total_price1=$tto*$days;
                 //orders
-                $query1 = "INSERT INTO orders (oid,cid,total_amount,status)values('$oid','$cid','$tto','$status')";
+                $starttime = time();
+                $query1 = "INSERT INTO orders (oid,cid,total_amount,status,startdate,days,total_amount1)values('$oid','$cid','$tto','$status','$starttime','$days','$total_price1')";
                 $result1 = mysqli_query($link, $query1) ;
                 if(!$query1)
                 {
@@ -194,7 +195,12 @@
             </tr>
             <tr><th>Phone number:</th>
                 <th><input type="text" name="phone" required/></th>
-            </tr>  
+            </tr>
+            <tr><th>No of Days:</th>
+                <div class = "ddays">
+                <th><input type="text" name="days" required/></th>
+                </div>
+            </tr>
         </table>   
 
 

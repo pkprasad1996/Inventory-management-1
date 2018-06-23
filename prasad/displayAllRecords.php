@@ -7,6 +7,8 @@ if($link === false){
 $query = "select * from orders join customer on orders.cid = customer.cid";
 $result = mysqli_query($link, $query) or die(mysqli_error($link));
 
+$i=0;
+
 ?>
 <html>
 
@@ -21,18 +23,31 @@ $result = mysqli_query($link, $query) or die(mysqli_error($link));
 <TH>NAME</TH>
 <TH>ADDRESS</TH>
 <TH>PHONE</TH>
+<TH>AMOUNT</TH>
+<TH>DAYS</TH>
+<TH>TOTAL_AMOUNT</TH>
 </tr>
 
+
     <?php
-    foreach($result as $displayRecords) { ?>
+    $i=0;
+    foreach($result as $displayRecords) { 
+        echo '
         <tr>
-            <td><a href="UpdateOrder.php?oid=<?php print $displayRecords['oid']; ?>">
-                    <?php print $displayRecords['oid']; ?></a></td>
-            <td><?php print $displayRecords['cname']; ?></td>
-            <td><?php print $displayRecords['address']; ?></td>
-            <td><?php print $displayRecords['phone']; ?></td>
+        <td><a href="UpdateOrder.php?oid='.$displayRecords['oid'].'">
+                    '.$displayRecords['oid'].'</td>
+        <th>'.$displayRecords['cname'].'</th>
+        <th>'.$displayRecords['address'].'</th>
+        <th>'.$displayRecords['phone'].'</th>
+        <th><input type="number" name="amount'.$i.'" value='.$displayRecords['total_amount'].'></th>
+        <th><input type="number" name="days'.$i.'" value='.$displayRecords['days'].'></th>
+        <th><input type="number" name="total'.$i.'" value='.$displayRecords['total_amount1'].'></th>
         </tr>
-    <?php } ?>
+        ';
+        $i=$i+1;
+     } 
+     ?>
+        
 
 
 </table>
