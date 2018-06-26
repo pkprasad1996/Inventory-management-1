@@ -11,10 +11,10 @@ echo "<center>
 <B>Item list</B>
 <BR>
 <BR>
-<table border=3 cellpading=20>
+<table border=1 cellpadding='10' >
 <tr>
-<TH>ITEM-ID</TH>
-<TH>ITEM-NAME</TH>
+<TH >ITEM-ID</TH>
+<Th>ITEM-NAME</Th>
 <TH>ITEM-QUANTITY</TH>
 <TH>AVAILABLE-ITEMS</TH>
 <th>PRICE</th>
@@ -24,7 +24,7 @@ while($row = mysqli_fetch_array($result))
 {
     echo  '<tr>
     <th>'.$row['id'].'</th>
-    <th>'.$row['name'].'</th>
+    <th >'.$row['name'].'</th>
     <th>'.$row['quantity'].'</th>
     <th>'.$row['available'].'</th>
     <th>'.$row['Price'].'</th>

@@ -6,13 +6,22 @@
     $i=0;
     $k=0;
     $tto=0;
+
+    
     //error reporting and warning display.
     //error_reporting(E_ALL);
     //ini_set('display_errors', 'off');
 
     //GET param from href
-    $thisUserID = $_GET['oid'];
     
+    
+
+    session_start();
+    if(isset($_SESSION['oid'])) {
+  $thisUserID = $_SESSION['oid'];
+}
+
+
 
     $query = "select * from orders join customer on orders.cid = customer.cid
                                     join order_details on orders.oid = order_details.oid 
@@ -22,7 +31,7 @@
     $result2 = mysqli_query($link, $query) or die(mysqli_error($link));
     $count = mysqli_num_rows($result2);
     $r = mysqli_fetch_array($result);
-    
+    $tto=0;
 
 
 
@@ -32,30 +41,41 @@
 
     if(isset($_POST['address']))
     {   
-    
+            $amount=$_POST['amount'];
+            $days=$_POST['days'];
+            $total=$_POST['total'];
+            $paid=$_POST['paid'];
+            $total=$amount*$days;
+
+        
+
+            $query22="UPDATE orders SET days='$days', total_amount='$amount', total_amount1='$total', amount_paid='$paid' where oid='$thisUserID' ";
+            $result22 = mysqli_query($link, $query22) ;
+
+
         for($k=0;$k<$count;$k++)
         {  
-            
-            
-            if(isset($_POST['check'.$k.'']))
-            {
                 $idd=$_POST['id'.$k.''];
                 $n=$_POST['name'.$k.''];
                 $oid=$_POST['oid'];
+                $total=(float)$_POST['total'.$k.''];
+                
+    
                 $p=(float)$_POST['price'.$k.''];
                 $rent=$_POST['rentq'.$k.''];
                 $ret=$_POST['ret'.$k.''];
+                $ret=intval($ret);
                 $rem=$_POST['rem'.$k.''];
-                $total=(float)$_POST['total'.$k.''];
+                
+                
                 $rem=$rem-$ret;
 
-                
-
                 $total=$rent*$p;
+                $tto=$tto+$total;
 
-
-                $query4 = "UPDATE order_details SET rentq='$rent', total='$total', returned='$ret', remained='$rem' where oid='$oid' and id='$idd'";
+                $query4 = "UPDATE order_details SET rentq='$rent', total='$total', returned=returned+'$ret', remained='$rem' where oid='$oid' and id='$idd'";
                 $result4 = mysqli_query($link, $query4) ;
+
 
                 if(!$result4)
                 {
@@ -65,66 +85,37 @@
                 $query44 = "UPDATE items SET  available=available+'$ret'  where id='$idd'";
                 $result44 = mysqli_query($link, $query44);
 
-               
-                
+             
                 
                 if(!$result44)
                 {
                     echo "Updation failed";
                 }
+                else
+                {
+                echo' <script> location.href="UpdateOrder.php"</script>';
+                }
 
-            }
-
-           
+          
 
         }
+            
+           $q="UPDATE orders SET total_amount=$tto where oid='$thisUserID'";
+           $r = mysqli_query($link, $q) ;
+           
+
+            
+     
         
        
 }
-
-
-
-if(isset($_POST['address1']))
-    {   
-    
-
-
-        $amount=$_POST['amount'];
-        $days=$_POST['days'];
-        $total=$_POST['total'];
-        $paid=$_POST['paid'];
-        $total=$amount*$days;
-
-       
-
-        $query22="UPDATE orders SET days='$days', total_amount1='$total', amount_paid='$paid' where oid='$thisUserID' ";
-        $result22 = mysqli_query($link, $query22) ;
-        if(!$result22)
-        {
-            echo "Updation failed";
-        }
-    }
 
 ?>
 
 <html>
 <head>
 <script src="jquery-3.3.1.min.js"></script>
-<script>
-/*
- $(document).ready(function()
-            {
-                $("input").change(function()
-                {
-                    var days = document.find('.days').value;
-                    alert(days);
-                //  var amount=document.getElemetById("amount").value;
-                // var total=days*amount;
-                // document.getElemetById("total").value=total;
-            }); 
-        });
-*/
-</script>
+
 
 </head>
 <body>
@@ -165,7 +156,7 @@ if(isset($_POST['address1']))
             <td>Amount_paid</td>
             <td><input  id="paid" type="number" name="paid" value='.$r['amount_paid'].'></td>
         <tr>
-        <th colspan=3><input type="submit" value="Update" name="address1"/></th>
+       
     ';
     
    
@@ -183,7 +174,7 @@ if(isset($_POST['address1']))
             <th>returned</th>
             <th>Remained</th>
             <TH>Price</TH>
-            <th>Check</th>
+             <th>Check</th>     
         </tr>
 
         <?php
@@ -195,11 +186,11 @@ while($row = mysqli_fetch_array($result2))
     echo  '
     <tr>
     <input type="hidden" name="oid" value='.$row['oid'].' >
-    <td><a href="UpdateOrder1.php?oid='.$row['oid'].'">'.$row['oid'].' </a></td>
+    <td><a href="UpdateOrder1.php">'.$row['oid'].' </a></td>
     <th><input type="number" name="id'.$i.'" value='.$row['id'].' readonly></th>
     <th><input type="text" name="name'.$i.'" value='.$row['name'].' readonly></th>
     <th><input type="number" name="price'.$i.'" value='.$row['price'].' readonly></th>
-    <th><input type="number" name="rentq'.$i.'" value='.$row['rentq'].' readonly></th>
+    <th><input type="number" name="rentq'.$i.'" value='.$row['rentq'].' ></th>
     <th><input type="number" name="ret'.$i.'" value=0></th>
     <th><input type="number" name="rem'.$i.'" value='.$row['remained'].'></th>
     <th><input type="number" name="total'.$i.'" value='.$row['total'].'></th>
@@ -208,9 +199,8 @@ while($row = mysqli_fetch_array($result2))
     ';
     $i=$i+1;
 }
-echo  '<th colspan=3><input type="submit" value="Update" name="address"/></th>
- <th> <input type="button" value="Refresh Page" onClick="window.location.reload()"></th>
-<th colspan=3><input type="submit" value="Delete" name="delete"/></th>
+echo  '<th colspan=8><input type="submit" value="Update" name="address"/></th>
+<th colspan=1><input type="submit" value="Delete" name="delete"/></th>
 ';
          ?>
 

@@ -31,13 +31,14 @@ while($row = mysqli_fetch_array($result))
     echo  '
     <tr>
     <th><input type="number" placeholder='.$row['id'].' name="id'.$i.'" value='.$row['id'].' readonly></th>
-    <th><input type="text" placeholder='.$row['name'].' name="name'.$i.'" value='.$row['name'].'></th>
+    <th><input type="text" placeholder='.$row['name'].' name="name'.$i.'" value="'.$row['name'].'"></th>
     <th><input type="number" placeholder='.$row['quantity'].' name="quantity'.$i.'" value='.$row['quantity'].'></th>
     <th><input type="number" placeholder='.$row['available'].' name="available'.$i.'" value='.$row['available'].'></th>
     <th><input type="number" step="any" placeholder='.$row['Price'].' name="price'.$i.'" value='.$row['Price'].'></th>
     <th><input type="checkbox" name="check'.$i.'" value="d"></th>
     </tr>
     ';
+    echo $row['name'];
     $i=$i+1;
 }
 

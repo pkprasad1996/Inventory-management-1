@@ -6,7 +6,11 @@ if($link === false){
 
 $nn=0;
 //GET param from href
-$thisUserID = $_GET['oid'];
+session_start();
+if(isset($_SESSION['oid'])) {
+$thisUserID = $_SESSION['oid'];
+}
+
 
 //order_details join
 $query ="select * from orders join customer on orders.cid = customer.cid
@@ -116,7 +120,7 @@ function print1() {
             </tr>
             <tr>
                 <td class="meta-head">Amount Due</td>
-                <td><div class="due"><?php print $r[7]; ?></div></td>
+                <td><div class="due"><?php print $r[7]-$r[6]; ?></div></td>
             </tr>
 
         </table>
@@ -162,7 +166,7 @@ function print1() {
             <td colspan="2" class="blank"> </td>
         </tr>
         <tr>
-            <td colspan="2"  align="middle">Total (no of days)</td>
+            <td colspan="2"  align="middle">Total  Amount (no of days)</td>
             <td class="total-value"><div class="due"> <?php print $r[7]; ?></td>
             <td colspan="2" class="blank" align="middle"> </td>
         </tr>

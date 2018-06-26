@@ -185,13 +185,14 @@
     </head>
     <body>
     <center>
+    <?php// $_SERVER["PHP_SELF"]; ?>
     <form action="<?php $_SERVER["PHP_SELF"]; ?>" method="post">
         <table bordor = 1 >
             <tr><th>Customer Name :</th>
                 <th><input type="text" name="cname" required/></th>
             </tr>
             <tr><th>Address :</th>
-                <th><input type="text" name="address" required/></th>
+                <th><textarea name="address" required></textarea></th>
             </tr>
             <tr><th>Phone number:</th>
                 <th><input type="text" name="phone" required/></th>
