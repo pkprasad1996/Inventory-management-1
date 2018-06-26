@@ -72,11 +72,19 @@ if(isset($_POST['address']))
 function print1() {
     window.print();
 }
+
+function print2() {
+    location.href="UpdateOrder.php";
+}
+
+
 </script>
 
 </head>
 
 <body>
+
+
     <form>
 
 <div id="page-wrap">
@@ -148,8 +156,9 @@ function print1() {
         </table>
         <br>
         <table id="items">
-        <tr id="hiderow">
-            <td colspan="5" align="middle"><input type="button" onclick="print1()" value="Print Invoice" /></td>
+        <tr id="hiderow" >
+            <td colspan="5" align="middle"><input type="button" onclick="print1()" value="Print Invoice" />
+            <input type="button" onclick="print2()" value="Edit Bill" /></td>
         </tr>
        
         <tr >

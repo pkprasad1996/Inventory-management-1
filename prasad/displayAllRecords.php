@@ -19,12 +19,39 @@ session_start();
 
 ?>
 <html>
+    <head><link rel="stylesheet" href="css_menu/styles.css">
 
+    <!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="table/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="table/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="table/vendor/animate/animate.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="table/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="table/vendor/perfect-scrollbar/perfect-scrollbar.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+<!--===============================================================================================-->
+
+
+</head>
+
+<body>
+<div id='cssmenu'>
+<ul>
+   <li><a href='index.php'>Home</a></li>
+   <li><a href='list.php'>Item List</a></li>
+   <li class='active'><a href='displayAllRecords.php'>View Orders</a></li>
+   <li><a href='contacts.html'>Contact</a></li>
+</ul>
+</div>
 
 <center>
-<B>orders</B>
-<BR>
-<BR>
+<h1>orders</h1>
+
 <form method="post" action="displayAllRecords.php">
 <table border=3 cellpading=20>
 <tr>
@@ -50,12 +77,12 @@ session_start();
         <tr>
         <th><input type="submit" name="add'.$i.'" value="View Details" ></th>
         <td><input type="text" value='.$displayRecords['oid'].' name ="oid'.$i.'" readonly></td>
-        <th>'.$displayRecords['cname'].'</th>
-        <th>'.$displayRecords['address'].'</th>
-        <th>'.$displayRecords['phone'].'</th>
-        <th>'.$displayRecords['total_amount'].'</th>
-        <th>'.$displayRecords['days'].'</th>
-        <th>'.$displayRecords['total_amount1'].'</th>
+        <td>'.$displayRecords['cname'].'</td>
+        <td>'.$displayRecords['address'].'</td>
+        <td>'.$displayRecords['phone'].'</td>
+        <td>'.$displayRecords['total_amount'].'</td>
+        <td>'.$displayRecords['days'].'</td>
+        <td>'.$displayRecords['total_amount1'].'</td>
         </tr>
         
         ';
@@ -93,5 +120,5 @@ mysqli_close($link);
 </table>
 </form>
 </center>
-
+</body>
 </html>

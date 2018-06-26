@@ -116,6 +116,7 @@
 
 <html>
     <head>
+    <link rel="stylesheet" href="css_menu/styles.css">
         <title>
             BILL GENERATION
         </title>
@@ -184,6 +185,14 @@
 
     </head>
     <body>
+    <div id='cssmenu'>
+<ul>
+   <li><a href='index.php'>Home</a></li>
+   <li><a href='list.php'>Item List</a></li>
+   <li><a href='displayAllRecords.php'>View Orders</a></li>
+   <li><a href='contacts.html'>Contact</a></li>
+</ul>
+</div>
     <center>
     <?php// $_SERVER["PHP_SELF"]; ?>
     <form action="<?php $_SERVER["PHP_SELF"]; ?>" method="post">

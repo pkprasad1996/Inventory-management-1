@@ -41,10 +41,10 @@
 
     if(isset($_POST['address']))
     {   
-            $amount=$_POST['amount'];
+            $amount=(float)$_POST['amount'];
             $days=$_POST['days'];
-            $total=$_POST['total'];
-            $paid=$_POST['paid'];
+            $total=(float)$_POST['total'];
+            $paid=(float)$_POST['paid'];
             $total=$amount*$days;
 
         
@@ -114,11 +114,33 @@
 
 <html>
 <head>
+<link rel="stylesheet" href="css_menu/styles.css">
+   
 <script src="jquery-3.3.1.min.js"></script>
 
+    <!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="table/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="table/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="table/vendor/animate/animate.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="table/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="table/vendor/perfect-scrollbar/perfect-scrollbar.css">
+<!--===============================================================================================-->
 
 </head>
 <body>
+<div id='cssmenu'>
+<ul>
+   <li><a href='index.php'>Home</a></li>
+   <li><a href='list.php'>Item List</a></li>
+   <li><a href='displayAllRecords.php'>View Orders</a></li>
+   <li><a href='contacts.html'>Contact</a></li>
+</ul>
+</div>
+
 <form  method='post'>
 <center>
     <B>order details</B>
@@ -142,20 +164,20 @@
         </tr>
         <tr>
             <td>Amount</td>
-            <td><input id="amount" type="number" name="amount" value='.$r['total_amount'].'></td>
-        <tr>
+            <td><input id="amount" type="number" step="any" name="amount" value='.$r['total_amount'].'></td>
+        </tr>
         <tr>
             <td>Days</td>
             <td><input  id ="days" type="number" name="days" value='.$r['days'].'></td>
-        <tr>
+        </tr>
         <tr>
             <td>Total</td>
-            <td><input  id="total" type="number" name="total" value='.$r['total_amount1'].'></td>
-        <tr>
+            <td><input  id="total" type="number" step="any" name="total" value='.$r['total_amount1'].'></td>
+        </tr>
         <tr>
             <td>Amount_paid</td>
-            <td><input  id="paid" type="number" name="paid" value='.$r['amount_paid'].'></td>
-        <tr>
+            <td><input  id="paid" type="number" step="any" name="paid" value='.$r['amount_paid'].'></td>
+        </tr>
        
     ';
     
@@ -199,8 +221,8 @@ while($row = mysqli_fetch_array($result2))
     ';
     $i=$i+1;
 }
-echo  '<th colspan=8><input type="submit" value="Update" name="address"/></th>
-<th colspan=1><input type="submit" value="Delete" name="delete"/></th>
+echo  '<td colspan=8><center><input type="submit" value="Update" name="address"/></center></td>
+<td colspan=1><center><input type="submit" value="Delete" name="delete"/></center></td>
 ';
          ?>
 

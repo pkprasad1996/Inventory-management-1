@@ -10,10 +10,35 @@ $result = mysqli_query($link, $query) or die(mysqli_error($link));
 $count = mysqli_num_rows($result);
 
 echo "
+<link rel='stylesheet' href='css_menu/styles.css'>
+
+<!--===============================================================================================-->
+<link rel='stylesheet' type='text/css' href='table/vendor/bootstrap/css/bootstrap.min.css'>
+<!--===============================================================================================-->
+<link rel='stylesheet' type='text/css' href='table/fonts/font-awesome-4.7.0/css/font-awesome.min.css'>
+<!--===============================================================================================-->
+<link rel='stylesheet' type='text/css' href='table/vendor/animate/animate.css'>
+<!--===============================================================================================-->
+<link rel='stylesheet' type='text/css' href='table/vendor/select2/select2.min.css'>
+<!--===============================================================================================-->
+<link rel='stylesheet' type='text/css' href='table/vendor/perfect-scrollbar/perfect-scrollbar.css'>
+<!--===============================================================================================-->
+
+
+<div id='cssmenu'>
+<ul>
+   <li><a href='index.php'>Home</a></li>
+   <li><a href='list.php'>Item List</a></li>
+   <li><a href='displayAllRecords.php'>View Orders</a></li>
+   <li><a href='contacts.html'>Contact</a></li>
+</ul>
+</div>
+
+
 <form action='ex.php' method='post'>
 <center>
 <table border=3 cellpading=20>
-<h1>ITEM LIST</h1>
+<h1>EDITABLE ITEM LIST</h1>
 <tr>
 <TH>ITEM-ID</TH>
 <TH>ITEM-NAME</TH>
@@ -38,12 +63,11 @@ while($row = mysqli_fetch_array($result))
     <th><input type="checkbox" name="check'.$i.'" value="d"></th>
     </tr>
     ';
-    echo $row['name'];
     $i=$i+1;
 }
 
-echo  '<th colspan=5><input type="submit" value="Update" name="address"/>
-        <th colspan=5><input type="submit" value="Delete" name="delete"/>
+echo  '<td colspan=5><center><input type="submit" value="Update" name="address"></center></td>
+        <td><center><input type="submit" value="Delete" name="delete"></center></td>
         ';
     $result1;
     if(isset($_POST['delete']))
@@ -112,9 +136,11 @@ echo '
 <th><input type="number" placeholder="Price" name="price"/></th>
 </tr>
 <tr>
-<th colspan=4>
+<td colspan=4>
+<center>
 <input type="submit" name="add" value="ADD"/>
-</th>
+</center>
+</td>
 </tr>
 </table>
 <br>
@@ -149,7 +175,9 @@ if(isset($_POST['add']))
 echo '
 <center>
 <br>
+<center>
 <a href="list.php"><button>Check List</button></a>
+</center>
 <br>
 </center>
 ';
