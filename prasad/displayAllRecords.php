@@ -56,14 +56,16 @@ session_start();
 <table border=3 cellpading=20>
 <tr>
 <th>Check</th>
+
 <TH>ORDER-ID</TH>
+<th>Date</th>
 <TH>NAME</TH>
 <TH>ADDRESS</TH>
 <TH>PHONE</TH>
 <TH>AMOUNT</TH>
 <TH>DAYS</TH>
-<TH>TOTAL_AMOUNT</TH>
-
+<th>Total Amount</th>
+<th>Check</th>
 </tr>
 
 
@@ -77,19 +79,20 @@ session_start();
         <tr>
         <th><input type="submit" name="add'.$i.'" value="View Details" ></th>
         <td><input type="text" value='.$displayRecords['oid'].' name ="oid'.$i.'" readonly></td>
+        <td>'.date("Y-M-d",$displayRecords['startdate']).'</td>
         <td>'.$displayRecords['cname'].'</td>
         <td>'.$displayRecords['address'].'</td>
         <td>'.$displayRecords['phone'].'</td>
         <td>'.$displayRecords['total_amount'].'</td>
         <td>'.$displayRecords['days'].'</td>
         <td>'.$displayRecords['total_amount1'].'</td>
+        <th><input type="submit" name="del'.$i.'" value="Delete Order" ></th>
         </tr>
         
         ';
         $i=$i+1;
      } 
-
-
+  
   //   echo"<tr><td colspan=8 align='middle'><input type='submit' name='add' value='View Details' ></td></tr>";
      
    //  echo"<a href='UpdateOrder.php'>View Bill</a>";
@@ -112,6 +115,53 @@ for($k=0;$k<$count;$k++)
         }
 }
 
+for($k=0;$k<$count;$k++)
+    {
+        if(isset($_POST['del'.$k.'']))
+            {   
+                    $oid=$_POST['oid'.$k.''];
+                    $q1="SELECT id,remained FROM order_details WHERE oid='$oid'";
+                    $r1 = mysqli_query($link, $q1) ;
+                    $cc=mysqli_num_rows($r1);
+
+                    $q5="SELECT cid From orders WHERE oid='$oid' ";
+                    $r5 = mysqli_query($link, $q5) ;
+                    $cidd=mysqli_fetch_row($r5);
+
+
+
+                    
+                        foreach($r1 as $rr1)
+                        {
+                        $a=intval($rr1['remained']);
+                        $ii=intval($rr1['id']);
+                        
+                        $q="UPDATE Items SET available=available+$a WHERE id='$ii'";
+                        $r = mysqli_query($link, $q) ;
+
+                        $qq="DELETE FROM order_details WHERE id='$ii' and oid='$oid'";
+                        $rr=mysqli_query($link, $qq);
+                        }
+                        
+
+                        $q22="DELETE FROM orders WHERE oid='$oid'";
+                        $r2=mysqli_query($link, $q22);
+
+                        $q222="DELETE FROM customer WHERE cid='$cidd[0]'";
+                        $r22=mysqli_query($link, $q222);
+
+                        
+                        if(!$r22)
+                        {
+                            echo "Updation failed";
+                        }
+                        else
+                        {
+                        echo' <script> location.href="displayAllRecords.php"</script>';
+                        } 
+                  
+        }
+}
 
 
 mysqli_close($link);
