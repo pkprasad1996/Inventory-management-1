@@ -60,6 +60,7 @@ session_start();
 <TH>ORDER-ID</TH>
 <th>Date</th>
 <TH>NAME</TH>
+<th>ORDER BY</th>
 <TH>ADDRESS</TH>
 <TH>PHONE</TH>
 <TH>AMOUNT</TH>
@@ -81,6 +82,7 @@ session_start();
         <td><input type="text" value='.$displayRecords['oid'].' name ="oid'.$i.'" readonly></td>
         <td>'.date("Y-M-d",$displayRecords['startdate']).'</td>
         <td>'.$displayRecords['cname'].'</td>
+        <td>'.$displayRecords['orderby'].'</td>
         <td>'.$displayRecords['address'].'</td>
         <td>'.$displayRecords['phone'].'</td>
         <td>'.$displayRecords['total_amount'].'</td>

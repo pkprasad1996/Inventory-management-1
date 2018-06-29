@@ -73,7 +73,7 @@
                 $total=$rent*$p;
                 $tto=$tto+$total;
 
-                $query4 = "UPDATE order_details SET rentq='$rent', total='$total', returned=returned+'$ret', remained='$rem' where oid='$oid' and id='$idd'";
+                $query4 = "UPDATE order_details SET rentq='$rent', total='$total', returned=returned+'$ret',retshow='$ret', remained='$rem' where oid='$oid' and id='$idd'";
                 $result4 = mysqli_query($link, $query4) ;
 
 
@@ -100,15 +100,91 @@
 
         }
             
-           $q="UPDATE orders SET total_amount=$tto where oid='$thisUserID'";
+           $q="UPDATE orders SET total_amount='$tto' where oid='$thisUserID'";
            $r = mysqli_query($link, $q) ;
-           
+    }
 
-            
-     
+    $tto1=0;
+    $ttt=0;
+    if(isset($_POST['delete']))
+    { 
+        $oidd=$_POST['oid'];
         
-       
+        for($k=0;$k<$count;$k++)
+        {
+            $total=(float)$_POST['total'.$k.''];
+            $oid=$_POST['oid'];
+            $tto1=$tto1+$total;
+         
+            if(isset($_POST['check'.$k.'']))
+            {
+                $rem=$_POST['rem'.$k.''];
+                $idd=$_POST['id'.$k.''];
+                $q1="UPDATE items SET available=available+'$rem' WHERE id='$idd'";
+                $r1 = mysqli_query($link, $q1); 
+
+                if(!$r1)
+                {
+                    echo "Updation failed";
+                }
+                
+                $q2="DELETE FROM order_details WHERE id='$idd' and oid='$oid'";
+                $r2 = mysqli_query($link, $q2); 
+
+                if(!$r2)
+                {
+                    echo "Updation failed";
+                } 
+                else
+                {
+                    echo' <script> location.href="UpdateOrder.php"</script>';
+                }
+            }
+
+           
+        }
+             
+
+            $q11="UPDATE orders SET total_amount='$tto1' where oid='$oidd'";
+            $r11 = mysqli_query($link, $q11) ;
+            if(!$r11)
+            {
+                echo "Updation failed";
+            }
+            else
+            {
+                echo' <script> location.href="UpdateOrder.php"</script>';
+            }
+
+
 }
+/*
+if(isset($_POST['to']))
+{
+        $days=$_POST['days'];
+        $oidd=$_POST['oid'];
+        for($k=0;$k<$count;$k++)
+        {
+            $total=(float)$_POST['total'.$k.''];
+            $tto1=$tto1+$total;
+            
+        }
+        $ttt=$tto1*$days;
+
+            $q11="UPDATE orders SET total_amount='$tto1',total_amount1='$ttt' where oid='$oidd'";
+            $r11 = mysqli_query($link, $q11) ;
+            if(!$r11)
+            {
+                echo "Updation failed";
+            }
+            else
+            {
+                echo' <script> location.href="UpdateOrder.php"</script>';
+            }
+        
+        
+}
+*/
 
 ?>
 
@@ -157,6 +233,10 @@
         <tr>
             <td>Address</td>
             <td>'.$r['address'].'</td>
+        </tr>
+        <tr>
+            <td>Orderby</td>
+            <td>'.$r['orderby'].'</td>
         </tr>
         <tr>
             <td>Phone</td>
@@ -212,10 +292,10 @@ while($row = mysqli_fetch_array($result2))
     <th><input type="number" name="id'.$i.'" value='.$row['id'].' readonly></th>
     <th><input type="text" name="name'.$i.'" value='.$row['name'].' readonly></th>
     <th><input type="number" name="price'.$i.'" value='.$row['price'].' readonly></th>
-    <th><input type="number" name="rentq'.$i.'" value='.$row['rentq'].' ></th>
+    <th><input type="number" name="rentq'.$i.'" value='.$row['rentq'].' readonly></th>
     <th><input type="number" name="ret'.$i.'" value=0></th>
-    <th><input type="number" name="rem'.$i.'" value='.$row['remained'].'></th>
-    <th><input type="number" name="total'.$i.'" value='.$row['total'].'></th>
+    <th><input type="number" name="rem'.$i.'" value='.$row['remained'].' readonly></th>
+    <th><input type="number" name="total'.$i.'" value='.$row['total'].' readonly></th>
     <th><input type="checkbox" name="check'.$i.'" value="d"></th>
     </tr>
     ';

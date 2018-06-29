@@ -96,7 +96,7 @@ function print2() {
     </div>
 
 
-    <textarea id="header">INVOICE</textarea>
+    <textarea id="header">OUT CHALAN</textarea>
 
     <div id="identity">
 
@@ -118,7 +118,7 @@ function print2() {
     <div id="customer">
         <table id="meta" align="right">
             <tr>
-                <td class="meta-head">Invoice #</td>
+                <td class="meta-head">Out-Chalan #</td>
                 <td><textarea><?php print $r[0]; ?></textarea></td>
             </tr>
             <tr>
@@ -127,77 +127,33 @@ function print2() {
                 ?>
                 <td><textarea><?php print date("Y-M-d",$r[4]); ?></textarea></td>
             </tr>
-            <tr>
-                <td class="meta-head">Amount Due</td>
-                <td><div class="due"><?php print $r[7]-$r[6]; ?></div></td>
-            </tr>
-
         </table>
         
     </div>
     <table id="items" >
 
         <tr>
-            <th >Item</th>
-            <th>Unit Cost</th>
-            <th>Quantity</th>
-            <th>Price</th>
+            <th>Item</th>
+            <th>Returned</th>
+            <th>Remained</th>
         </tr>
 
       <?php  while($row = mysqli_fetch_array($result1))
       echo' <tr align="middle">
-                <td >'.$row['name'].'</td>
-                <td>'.$row['price'].'</td>
-                <td>'.$row['rentq'].'</td>
-                <td>'.$row['total'].'</td>
+                <td>'.$row['name'].'</td>
+                <td>'.$row['retshow'].'</td>
+                <td>'.$row['remained'].'</td>
             </tr> ';
         ?>
         </table>
         <br>
         <table id="items">
         <tr id="hiderow" >
-            <td colspan="3" align="middle"><input type="button" onclick="print1()" value="Print Invoice" />
+            <td colspan="4" align="middle"><input type="button" onclick="print1()" value="Print out chalan" />
             <input type="button" onclick="print2()" value="Edit Bill" /></td>
-            <td><a href="chalan.php">Generate in chalan</a></td>
-            <td><a href="outchalan.php">Generate out chalan</a></td>
         </tr>
        
-        <tr >
-            
-            <td colspan="2"  align="middle">Number of days</td>
-            <td class="total-value"><div id="subtotal" ><?php print $r[5]; ?></div></td>
-            <td colspan="2" align="middle" > Mr. Ajay Panchakshari.  </td>
-        </tr>
-        <tr>
-
-            
-            <td colspan="2"  align="middle">Total (for 1 day)</td>
-            <td class="total-value"><div id="total"><?php print $r[2]; ?></div></td>
-            <td colspan="2" class="blank"> </td>
-        </tr>
-        <tr>
-            <td colspan="2"  align="middle">Total  Amount (no of days)</td>
-            <td class="total-value"><div class="due"> <?php print $r[7]; ?></td>
-            <td colspan="2" class="blank" align="middle"> </td>
-        </tr>
-        <tr>
-            <td colspan="2"  align="middle">Amount Paid</td>
-            <td class="total-value"><div class="due"> <?php print $r[6]; ?></td>
-            <td colspan="2" class="blank" align="middle"> </td>
-        </tr>
-        <tr>
-            <td colspan="2"  align="middle">Balance Due</td>
-            <td class="total-value balance"><div class="due"> <?php print $r[7]-$r[6]; ?></div></td>
-            <td colspan="2" class="blank" align="middle"></td>
-        </tr>
-
-    </table>
-
-    <div id="terms">
-        <h5>Terms</h5>
-        <p align="left">1.Transport Charges extra as applicable.<br>2.Hiring Rates are for One Day.<br>3.Shortage, Breakage, Damages will be charged at current market rate.<br>4.Delivery and Pick Time between 10.00 a.m. to 7.00 p.m.</p>
-        
-    </div>
+       
 
 </div>
 </form>

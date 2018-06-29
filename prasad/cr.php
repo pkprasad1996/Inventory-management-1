@@ -51,10 +51,10 @@
             $address = $_POST['address'];
             $phone = $_POST['phone'];
             $days = $_POST['days'];
-
+            $orderby = $_POST['order'];
             
             //customer
-            $query0 = "INSERT INTO customer (cid,cname,address,phone)values('$cid','$cname','$address','$phone')";
+            $query0 = "INSERT INTO customer (cid,cname,orderby,address,phone)values('$cid','$cname','$orderby','$address','$phone')";
             $result0 = mysqli_query($link, $query0);
 
             //order details
@@ -80,7 +80,7 @@
                         $result11 = mysqli_query($link, $query11);
 
 
-                        $query2 = "INSERT INTO order_details values ('$oid','$idd','$n','$rentq','$k','$price','$total_price','$rentq','$k')";
+                        $query2 = "INSERT INTO order_details values ('$oid','$idd','$n','$rentq','$k','$k','$price','$total_price','$rentq','$k')";
                         $result2 = mysqli_query($link, $query2);
                         if(!$query2)
                         {
@@ -200,6 +200,9 @@
             <tr><th>Customer Name :</th>
                 <th><input type="text" name="cname" required/></th>
             </tr>
+            <tr><th>Order By :</th>
+                <th><input type="text" name="order" required/></th>
+            </tr>
             <tr><th>Address :</th>
                 <th><textarea name="address" required></textarea></th>
             </tr>
@@ -223,7 +226,7 @@
                     <!-- <TH>ITEM-QUANTITY</TH> -->
                     <TH>AVAILABLE-ITEMS</TH>
                     <th>PRICE/ITEM</th>
-                    <th>RENT</th>
+                    <th>QUANTITY</th>
                     <th>TOTAL_COST</th>
                     <th>SELECT</th>
                 </tr>
@@ -242,19 +245,19 @@
 
                             <th>
                                 <div class="qqq">
-                                    <input type="text" class="qq" placeholder='.$row['name'].' name="name'.$i.'" value='.$row['name']. ' readonly>
+                                    <input type="text" class="qq"  name="name'.$i.'" value="'.$row['name'].'" readonly>
                                 </div>
                             </th>
 
                             <th>
                                 <div class="www">
-                                    <input type="number" class="ww" placeholder='.$row['available'].' name="available'.$i.'" value='.$row['available'].' readonly>
+                                    <input type="number" class="ww"  name="available'.$i.'" value='.$row['available'].' readonly>
                                 </div>
                             </th>
                            
                             <th>
                                 <div class="price">
-                                    <input type="number" class="bb" placeholder='.$row['Price'].' name="price'.$i.'" value='.$row['Price'].' readonly>
+                                    <input type="number" class="bb" name="price'.$i.'" value='.$row['Price'].' readonly>
                                 </div>
                             </th>
                             
